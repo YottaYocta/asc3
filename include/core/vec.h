@@ -1,8 +1,7 @@
 #ifndef VEC_H
 #define VEC_H
 
-#include <iostream>
-#include <cmath>
+#include <utils/utils.h>
 
 struct vec3
 {

@@ -4,10 +4,21 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project(asc3)
 
 set(SRC_DIR ${PROJECT_SOURCE_DIR}/src)
+set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
+set(EXAMPLE_DIR ${PROJECT_SOURCE_DIR}/src/examples)
 
-set(SRCS
-  ${SRC_DIR}/examples/main.cpp
+## LIBRARY
+
+set(LIB_SRCS
   ${SRC_DIR}/utils/canvas.cpp
 )
-add_executable(asc3_pathtracer ${SRCS})
-target_include_directories(asc3_pathtracer PUBLIC include)
+add_library(asc3 STATIC ${LIB_SRCS})
+target_include_directories(asc3 PUBLIC ${INCLUDE_DIR})
+
+## EXAMPLES
+
+add_executable(asc3_gradient ${EXAMPLE_DIR}/gradient.cpp)
+target_link_libraries(asc3_gradient PUBLIC asc3)
+
+add_executable(asc3_pathtracer ${EXAMPLE_DIR}/pathtracer.cpp)
+target_link_libraries(asc3_pathtracer PUBLIC asc3)

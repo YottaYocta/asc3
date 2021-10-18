@@ -1,8 +1,10 @@
 #include <utils/canvas.h>
 
-canvas::canvas() : canvas(10, 10) {}
+canvas::canvas() : canvas(10, 10, " _.,:;i!|I0#@") {}
 
-canvas::canvas(int w, int h) : buffer(h, vector<double>(w, 0)) {}
+canvas::canvas(int w, int h) : canvas (w, h, " _.,:;i!|I0#@") {}
+
+canvas::canvas(int w, int h, string p) : buffer(h, vector<double>(w, 0)), pallete {p} {}
 
 bool canvas::set(int x, int y, double val)
 {
@@ -29,7 +31,7 @@ string canvas::to_string(bool newlines) const
     {
       for (int j {0}; j < buffer[i].size(); j++)
       {
-        output += buffer[i][j];
+        output += pallete[static_cast<int>(buffer[i][j] / 256 * pallete.length())];
       }
       output += '\n';
     }
@@ -40,7 +42,7 @@ string canvas::to_string(bool newlines) const
     {
       for (int j {0}; j < buffer[i].size(); j++)
       {
-        output += buffer[i][j];
+        output += pallete[static_cast<int>(buffer[i][j] / 256 * pallete.length())];
       }
     }
   }
@@ -55,4 +57,9 @@ int canvas::get_width() const
 int canvas::get_height() const
 {
   return buffer.size();
+}
+
+void canvas::set_pallete(string str)
+{
+  pallete = str;
 }
