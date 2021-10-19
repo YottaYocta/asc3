@@ -11,6 +11,10 @@ set(EXAMPLE_DIR ${PROJECT_SOURCE_DIR}/src/examples)
 
 set(LIB_SRCS
   ${SRC_DIR}/utils/canvas.cpp
+  ${SRC_DIR}/core/primitives.cpp
+  ${SRC_DIR}/core/scene.cpp
+  ${SRC_DIR}/swpt/pathtracer.cpp
+  ${SRC_DIR}/swpt/intersectable.cpp
 )
 add_library(asc3 STATIC ${LIB_SRCS})
 target_include_directories(asc3 PUBLIC ${INCLUDE_DIR})
@@ -20,5 +24,5 @@ target_include_directories(asc3 PUBLIC ${INCLUDE_DIR})
 add_executable(asc3_gradient ${EXAMPLE_DIR}/gradient.cpp)
 target_link_libraries(asc3_gradient PUBLIC asc3)
 
-add_executable(asc3_pathtracer ${EXAMPLE_DIR}/pathtracer.cpp)
-target_link_libraries(asc3_pathtracer PUBLIC asc3)
+add_executable(asc3_software_pathtracer ${EXAMPLE_DIR}/software_pathtracer.cpp)
+target_link_libraries(asc3_software_pathtracer PUBLIC asc3)
