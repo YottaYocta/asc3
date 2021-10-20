@@ -1,5 +1,4 @@
 #include <core/primitives.h>
-#include <utils/utils.h>
 
 sphere::sphere() : sphere(vec3 {0, 0, -1}, 1) {}
 
@@ -25,9 +24,8 @@ void sphere::set_radius(double r)
   radius = r;
 }
 
-bool sphere::intersects(const ray& r) const
+bool sphere::intersects(const ray& r, primitive::intersection_info& info) const
 {
-  cout << r.dir << '\n';
   vec3 oc {r.origin - center};
   double a {r.dir.length_squared()}; 
   double b {dot(r.dir, oc)};
@@ -35,6 +33,14 @@ bool sphere::intersects(const ray& r) const
   double discriminant {b * b - a * c};
   if (discriminant < 0)
     return false;
+  double t = (-b - sqrt(b * b - a * c)) / a;
+  if (t < 0.001)
+  {
+    t = (-b + sqrt(b * b - a * c)) / a;
+    if (t < 0.001)
+      return false;
+  }
+  info.intersection = point3 {r.origin + r.dir * t};
+  info.normal = normalized(info.intersection - center);
   return true;
-
 }

@@ -1,6 +1,6 @@
 #include <core/scene.h>
 
-scene::scene() : objects(0) {}
+scene::scene() : objects(0), lights(0) {}
 
 void scene::add(shared_ptr<primitive>& obj_ptr)
 {

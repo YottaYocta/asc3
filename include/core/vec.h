@@ -1,7 +1,7 @@
 #ifndef VEC_H
 #define VEC_H
 
-#include <utils/utils.h>
+#include <utils.h>
 
 struct vec3
 {
@@ -32,8 +32,21 @@ inline vec3 cross(const vec3& a, const vec3& b) { return vec3 {
   a.x * b.y - a.y * b.x
 }; }
 inline vec3 normalized(const vec3& a) { return a / a.length(); }
+inline vec3 rand_in_unit_sphere()
+{
+  while (true)
+  {
+    vec3 v{rand_double(), rand_double(), rand_double()};
+    if (v.length_squared() > 1)
+      continue;
+    return v;
+  }
+}
+inline vec3 rand_normalized()
+{
+  return normalized(rand_in_unit_sphere());
+}
 
 using point3 = vec3;
-using rgb = vec3;
 
 #endif

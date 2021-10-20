@@ -7,7 +7,12 @@
 class primitive
 {
   public:
-    virtual bool intersects(const ray& r) const = 0;
+    struct intersection_info
+    {
+      point3 intersection;
+      vec3 normal;
+    };
+    virtual bool intersects(const ray& r, primitive::intersection_info& info) const = 0;
 };
 
 class sphere : public primitive
@@ -17,12 +22,12 @@ class sphere : public primitive
     double radius;
   public:
     sphere();
-    sphere(const vec3& t, double d);
+    sphere(const point3& c, double d);
     const vec3& get_center() const;
     void set_center(const vec3& c);
     double get_radius() const;
     void set_radius(double r);
-    virtual bool intersects(const ray& r) const override;
+    virtual bool intersects(const ray& r, primitive::intersection_info& info) const override;
 };
 
 #endif

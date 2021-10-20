@@ -1,5 +1,5 @@
 #include <utils/canvas.h>
-#include <utils/utils.h>
+#include <utils.h>
 
 int main()
 {

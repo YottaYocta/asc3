@@ -13,6 +13,7 @@ set(LIB_SRCS
   ${SRC_DIR}/utils/canvas.cpp
   ${SRC_DIR}/core/primitives.cpp
   ${SRC_DIR}/core/scene.cpp
+  ${SRC_DIR}/core/lights.cpp
   ${SRC_DIR}/swpt/pathtracer.cpp
 )
 add_library(asc3 STATIC ${LIB_SRCS})

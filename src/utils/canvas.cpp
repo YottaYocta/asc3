@@ -1,4 +1,5 @@
 #include <utils/canvas.h>
+#include <utils.h>
 
 canvas::canvas() : canvas(10, 10, " _.,:;i!|I0#@") {}
 

@@ -2,11 +2,7 @@
 #define PATHTRACER_H
 
 #include <utils/canvas.h>
-#include <utils/utils.h>
-#include <core/vec.h>
-#include <core/ray.h>
-#include <core/scene.h>
-#include <core/primitives.h>
+#include <core.h>
 
 class pathtracer
 {
@@ -16,7 +12,7 @@ class pathtracer
   public:
     pathtracer(canvas& c, scene& s);
     void trace_image();
-    double trace_path(const ray& r) const;
+    double trace_path(const ray& r, int depth) const;
 };
 
 #endif
