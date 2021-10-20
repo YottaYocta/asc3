@@ -1,2 +1,2 @@
 # asc3
-an ASCII rendering library and graphics engine
+an ASCII path tracing library

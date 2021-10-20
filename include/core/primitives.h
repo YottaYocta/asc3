@@ -2,28 +2,27 @@
 #define PRIMITIVES_H
 
 #include <core/vec.h>
+#include <core/ray.h>
 
 class primitive
 {
-  protected:
-    point3 transform;
   public:
-    primitive(const vec3& t);
-    virtual vec3 get_transform() const = 0;
-    virtual void set_transform(const point3& p) = 0;
+    virtual bool intersects(const ray& r) const = 0;
 };
 
 class sphere : public primitive
 {
   protected:
+    point3 center;
     double radius;
   public:
     sphere();
     sphere(const vec3& t, double d);
-    vec3 get_transform() const override;
-    void set_transform(const vec3& t) override;
+    const vec3& get_center() const;
+    void set_center(const vec3& c);
     double get_radius() const;
     void set_radius(double r);
+    virtual bool intersects(const ray& r) const override;
 };
 
 #endif

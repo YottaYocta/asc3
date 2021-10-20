@@ -14,7 +14,6 @@ set(LIB_SRCS
   ${SRC_DIR}/core/primitives.cpp
   ${SRC_DIR}/core/scene.cpp
   ${SRC_DIR}/swpt/pathtracer.cpp
-  ${SRC_DIR}/swpt/intersectable.cpp
 )
 add_library(asc3 STATIC ${LIB_SRCS})
 target_include_directories(asc3 PUBLIC ${INCLUDE_DIR})

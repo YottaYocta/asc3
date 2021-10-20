@@ -1,19 +1,18 @@
 #include <core/primitives.h>
-
-primitive::primitive(const vec3& t) : transform {t} {}
+#include <utils/utils.h>
 
 sphere::sphere() : sphere(vec3 {0, 0, -1}, 1) {}
 
-sphere::sphere(const vec3& t, double r) : primitive(t), radius {r} {}
+sphere::sphere(const vec3& c, double r) : center {c}, radius {r} {}
 
-vec3 sphere::get_transform() const
+const vec3& sphere::get_center() const
 {
-  return transform;
+  return center;
 }
 
-void sphere::set_transform(const vec3& t)
+void sphere::set_center(const vec3& c)
 {
-  transform = t;
+  center = c;
 }
 
 double sphere::get_radius() const
@@ -24,4 +23,18 @@ double sphere::get_radius() const
 void sphere::set_radius(double r)
 {
   radius = r;
+}
+
+bool sphere::intersects(const ray& r) const
+{
+  cout << r.dir << '\n';
+  vec3 oc {r.origin - center};
+  double a {r.dir.length_squared()}; 
+  double b {dot(r.dir, oc)};
+  double c {oc.length_squared() - radius * radius}; 
+  double discriminant {b * b - a * c};
+  if (discriminant < 0)
+    return false;
+  return true;
+
 }

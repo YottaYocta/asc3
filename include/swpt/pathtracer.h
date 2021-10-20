@@ -6,12 +6,12 @@
 #include <core/vec.h>
 #include <core/ray.h>
 #include <core/scene.h>
-#include <swpt/intersectable.h>
+#include <core/primitives.h>
 
 class pathtracer
 {
   private:
-    vector<shared_ptr<intersectable>> objects;
+    scene& world;
     canvas& canv;
   public:
     pathtracer(canvas& c, scene& s);
