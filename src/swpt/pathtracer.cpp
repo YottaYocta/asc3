@@ -11,7 +11,7 @@ void pathtracer::trace_image()
   const vec3 horizontal {2 * aspect * char_aspect, 0, 0};
   const vec3 focal {0, 0, 1};
   const vec3 lower_left_corner {origin - vertical / 2 - horizontal / 2 - focal};
-  const int ray_depth {5};
+  const int ray_depth {9};
 
   for (int i {0}; i < canv.get_height(); i++)
   {
@@ -19,24 +19,35 @@ void pathtracer::trace_image()
     {
       double u {static_cast<double>(j) / canv.get_width()};
       double v {static_cast<double>(i) / canv.get_height()};
-      double shade {trace_path(ray {origin, lower_left_corner + vertical * v + horizontal * u - origin}, ray_depth)}; 
+      double shade {0};
+      trace_path(ray {origin, lower_left_corner + vertical * v + horizontal * u - origin}, ray_depth, 1, shade); 
       canv.set(j, canv.get_height() - 1 - i, shade * 255.99);
     }
   }
 }
 
-double pathtracer::trace_path(const ray& r, int depth) const
+double pathtracer::trace_path(const ray& r, int depth, double mask, double& accumulated) const
 {
   if (depth <= 0)
-    return 0.1;
-  for (const shared_ptr<primitive>& object : world.get_objects())
+    return accumulated;
+  primitive::intersection_info info {};
+  if (world.intersects(r, info, 100))
   {
-    primitive::intersection_info info {};
-    if (object->intersects(r, info)) 
+    point3 offset_intersection {info.intersection + info.normal * 0.001};
+    mask *= 0.5;
+    double l_intensity {0};
+    for (const shared_ptr<emitter>& light : world.get_lights())
     {
-      ray random {info.intersection + 0.001 * info.normal, info.normal + rand_normalized()};
-      return 0.95 * trace_path(random, depth - 1);
+      primitive::intersection_info temp {};
+      if (!world.intersects(ray {offset_intersection, normalized(light->rand_point() - offset_intersection)}, temp, 100))
+      {
+        l_intensity += light->get_intensity();
+      }
     }
+    if (l_intensity >= 0)
+      accumulated += mask * l_intensity; 
+    return trace_path(ray {offset_intersection, info.normal + rand_normalized()}, depth - 1, mask, accumulated);
   }
-  return 0.5;
+  accumulated += 0.5 * 0.1;
+  return accumulated;
 }

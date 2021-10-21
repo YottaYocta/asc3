@@ -4,7 +4,7 @@
 #include <core.h>
 #include <utils.h>
 
-class scene
+class scene : primitive
 {
   private:
     vector<shared_ptr<primitive>> objects;
@@ -12,8 +12,10 @@ class scene
   public:
     scene();
     void add(shared_ptr<primitive>& obj_ptr); 
+    void add(shared_ptr<emitter>& obj_ptr); 
     const vector<shared_ptr<primitive>>& get_objects() const;
     const vector<shared_ptr<emitter>>& get_lights() const;
+    virtual bool intersects(const ray& r, primitive::intersection_info& info, double far) const override;
 };
 
 #endif

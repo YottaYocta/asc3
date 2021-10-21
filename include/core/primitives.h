@@ -11,8 +11,9 @@ class primitive
     {
       point3 intersection;
       vec3 normal;
+      double t;
     };
-    virtual bool intersects(const ray& r, primitive::intersection_info& info) const = 0;
+    virtual bool intersects(const ray& r, primitive::intersection_info& info, double far) const = 0;
 };
 
 class sphere : public primitive
@@ -27,7 +28,7 @@ class sphere : public primitive
     void set_center(const vec3& c);
     double get_radius() const;
     void set_radius(double r);
-    virtual bool intersects(const ray& r, primitive::intersection_info& info) const override;
+    virtual bool intersects(const ray& r, primitive::intersection_info& info, double far) const override;
 };
 
 #endif
