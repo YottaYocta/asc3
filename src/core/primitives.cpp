@@ -24,7 +24,7 @@ void sphere::set_radius(double r)
   radius = r;
 }
 
-bool sphere::intersects(const ray& r, primitive::intersection_info& info, double far) const
+bool sphere::intersects(const ray& r, intersection_info& info, double far) const
 {
   vec3 oc {r.origin - center};
   double a {r.dir.length_squared()}; 
@@ -43,5 +43,6 @@ bool sphere::intersects(const ray& r, primitive::intersection_info& info, double
   info.intersection = point3 {r.origin + r.dir * t};
   info.normal = normalized(info.intersection - center);
   info.t = t;
+  info.material_hit = material;
   return true;
 }

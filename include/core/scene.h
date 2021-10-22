@@ -1,7 +1,8 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include <core.h>
+#include <core/primitives.h>
+#include <core/lights.h>
 #include <utils.h>
 
 class scene : primitive
@@ -15,7 +16,7 @@ class scene : primitive
     void add(shared_ptr<emitter>& obj_ptr); 
     const vector<shared_ptr<primitive>>& get_objects() const;
     const vector<shared_ptr<emitter>>& get_lights() const;
-    virtual bool intersects(const ray& r, primitive::intersection_info& info, double far) const override;
+    virtual bool intersects(const ray& r, intersection_info& info, double far) const override;
 };
 
 #endif

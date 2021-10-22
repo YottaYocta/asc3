@@ -12,6 +12,7 @@ set(EXAMPLE_DIR ${PROJECT_SOURCE_DIR}/src/examples)
 set(LIB_SRCS
   ${SRC_DIR}/utils/canvas.cpp
   ${SRC_DIR}/core/primitives.cpp
+  ${SRC_DIR}/core/materials.cpp
   ${SRC_DIR}/core/scene.cpp
   ${SRC_DIR}/core/lights.cpp
   ${SRC_DIR}/swpt/pathtracer.cpp

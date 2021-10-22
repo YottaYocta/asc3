@@ -3,3 +3,4 @@
 #include <core/primitives.h>
 #include <core/scene.h>
 #include <core/lights.h>
+#include <core/materials.h>

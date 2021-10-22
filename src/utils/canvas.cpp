@@ -1,9 +1,9 @@
 #include <utils/canvas.h>
 #include <utils.h>
 
-canvas::canvas() : canvas(10, 10, " _.,:;i!|I0#@") {}
+canvas::canvas() : canvas(10, 10, " _.,:;i!1|I0#@") {}
 
-canvas::canvas(int w, int h) : canvas (w, h, " _.,:;i!|I0#@") {}
+canvas::canvas(int w, int h) : canvas (w, h, " _.,:;i!1|I0#@") {}
 
 canvas::canvas(int w, int h, string p) : buffer(h, vector<double>(w, 0)), pallete {p} {}
 

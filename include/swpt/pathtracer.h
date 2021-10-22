@@ -11,7 +11,7 @@ class pathtracer
     canvas& canv;
   public:
     pathtracer(canvas& c, scene& s);
-    void trace_image();
+    void trace_image(int samples);
     double trace_path(const ray& r, int depth, double mask, double& accumulated) const;
 };
 
