@@ -8,18 +8,18 @@
 
 class material;
 
-struct intersection_info
+struct path_info
 {
+  double t;
   point3 intersection;
   vec3 normal;
   shared_ptr<material> material_hit;
-  double t;
 };
 
 class primitive
 {
   public:
-    virtual bool intersects(const ray& r, intersection_info& info, double far) const = 0;
+    virtual bool intersects(const ray& r, path_info& info, double far) const = 0;
 };
 
 class sphere : public primitive
@@ -35,7 +35,7 @@ class sphere : public primitive
     void set_center(const vec3& c);
     double get_radius() const;
     void set_radius(double r);
-    virtual bool intersects(const ray& r, intersection_info& info, double far) const override;
+    virtual bool intersects(const ray& r, path_info& info, double far) const override;
 };
 
 #endif

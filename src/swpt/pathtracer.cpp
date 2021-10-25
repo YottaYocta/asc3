@@ -29,27 +29,26 @@ void pathtracer::trace_image(int samples)
   }
 }
 
-double pathtracer::trace_path(const ray& r, int depth, double mask, double& accumulated) const
+double pathtracer::trace_path(ray r, int depth, double mask, double& accumulated) const
 {
-  if (depth <= 0)
-    return accumulated;
-  intersection_info info {};
-  if (world.intersects(r, info, 100))
+  path_info info {};
+  while (depth >= 0 && world.intersects(r, info, 100))
   {
     point3 offset_intersection {info.intersection + info.normal * 0.001};
+    depth--;
     mask *= 0.5;
     double l_intensity {0};
     for (const shared_ptr<emitter>& light : world.get_lights())
     {
-      intersection_info temp {};
+      path_info temp {};
       if (!world.intersects(ray {offset_intersection, normalized(light->rand_point() - offset_intersection)}, temp, 100))
       {
         l_intensity += light->get_intensity();
       }
-    }
+    }  
     if (l_intensity >= 0)
       accumulated += mask * l_intensity; 
-    return trace_path(ray {offset_intersection, info.normal + rand_normalized()}, depth - 1, mask, accumulated);
+    r = ray {offset_intersection, info.normal + rand_normalized()};
   }
   accumulated += 0.5 * 0.1;
   return accumulated;

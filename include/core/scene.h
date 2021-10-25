@@ -16,7 +16,7 @@ class scene : primitive
     void add(shared_ptr<emitter>& obj_ptr); 
     const vector<shared_ptr<primitive>>& get_objects() const;
     const vector<shared_ptr<emitter>>& get_lights() const;
-    virtual bool intersects(const ray& r, intersection_info& info, double far) const override;
+    virtual bool intersects(const ray& r, path_info& info, double far) const override;
 };
 
 #endif

@@ -5,12 +5,12 @@
 #include <core/primitives.h>
 #include <utils.h>
 
-class intersection_info;
+class path_info;
 
 class material
 {
   public:
-    virtual bool scatter(const ray& r_in, intersection_info& info, ray& r_out, double& mask) const = 0;
+    virtual bool scatter(const ray& r_in, path_info& info, ray& r_out, double& mask) const = 0;
 };
 
 class lambertian : material
@@ -19,7 +19,7 @@ class lambertian : material
     double color;
   public:
     lambertian(double c);
-    virtual bool scatter(const ray& r_in, intersection_info& info, ray& r_out, double& mask) const override;
+    virtual bool scatter(const ray& r_in, path_info& info, ray& r_out, double& mask) const override;
 };
 
 #endif
